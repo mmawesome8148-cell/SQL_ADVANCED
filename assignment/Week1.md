@@ -1,9 +1,9 @@
 # SQL_ADVANCED 1주차 정규 과제
-<span style="font-size:20px;"> Week 1 : 서브쿼리 & CTE 
+<span style="font-size:20px;"> **📌Week 1 : 서브쿼리 & CTE** 
 
-<span style="font-size:18px;">1️⃣ 학습 내용      
+<span style="font-size:18px;">1️⃣ **학습 내용**      
     <br>
-2️⃣ 학습 내용 정리하기 
+2️⃣ **학습 내용 정리하기**
 1. 서브쿼리 
  
    ✅ 학습 목표 : SubQueries에 대한 문법을 이해하고 활용할 수 있다.  
@@ -70,34 +70,35 @@
     - 스코프 규칙: 안쪽 > 바깥쪽 순으로 평가됨.
     - 옵티마이저 최적화: 파생 테이블+`JOIN`으로 변환 가능
     <br> * 변환 가능 조건 - SELECT, WHERE(AND만), HAVING절/ =연산자
-    <br> **변환 '불가능' 조건 - JOINM LIMIT, OFFSET, UNION, <=>연산자, 집계 함수 내부, 모든 절(WHERE제외)에는 상관 컬럼 불가
+    <br> **변환 '불가능' 조건 - JOINM LIMIT, OFFSET, UNION, <=>연산자, 집계 함수 내부, 모든 절(WHERE제외)에는 상관 컬럼 불가 
 
-<br> <br> 
-   
+***
+<br>   
 2. CTE
 
-   ✅ 학습 목표 : CTE에 대한 문법을 이해하고 활용할 수 있다. 
+✅ 학습 목표 : CTE에 대한 문법을 이해하고 활용할 수 있다. 
 
-    <br> 
-    (0) CTE란?
-    
-     - 'Common Table Expressions'으로 하나의 SQL문 내에서만 존재하는 임시 결과 집합
-     - `WITH`절은 `SELECT`, `UPDATE`, `DELETE`문 앞에 위치
-     - 하나의 문장에는 `WITH`절 하나만
-     - 해석 순서: 서브쿼리 > CTE > 기본 테이블
-     - 이름: 지정하지 않으면 첫번째 SELECT문의 컬럼명으로 지
-     - 
+(0) CTE란?
 
-   <br>
-   (1) CTE vs. Derived Tables
+- 'Common Table Expressions'으로 하나의 SQL문 내에서만 존재하는 임시 결과 집합  
+- `WITH`절은 `SELECT`, `UPDATE`, `DELETE`문 앞에 위치  
+- 하나의 문장에는 `WITH`절 하나만  
+- 해석 순서: 서브쿼리 > CTE > 기본 테이블  
+- 이름: 지정하지 않으면 첫번째 SELECT문의 컬럼명으로 지정됨  
 
-    - 공통점: 이름 있음, 단일 문장에서만 존재
-    - 차이점: CTE는 여러번 참조, 자기 참조 가능, 가독성 좋음
-<br><br>
-
-<span style="font-size:18px;">3️⃣ 실습 문제
 <br>
-- 프로그래머스 문제
+
+(1) CTE vs. Derived Tables
+
+- 공통점: 이름 있음, 단일 문장에서만 존재  
+- 차이점: CTE는 여러 번 참조, 자기 참조 가능, 가독성 좋음
+
+***
+<br>
+
+<span style="font-size:18px;">3️⃣ **실습 문제**
+<br>
+- **프로그래머스 문제**
 https://school.programmers.co.kr/learn/courses/30/lessons/131123
 
     즐겨찾기가 가장 많은 식당 정보 출력하기 (GROUP BY, SubQuery) : Lev 3
@@ -110,11 +111,21 @@ https://school.programmers.co.kr/learn/courses/30/lessons/131123
 - ️**문제 인증란**
 
     [즐겨찾기가 가장 많은 식당 정보 출력하기_SubQuery](./images/1.jpg)
+    
+    [즐겨찾기가 가장 많은 식당 정보 출력하기_채점결과](./images/2.jpg)
+    <br><br>
 
+    [가격이 제일 비싼 식품의 정보 출력하기_SubQuery](./images/3.jpg)
 
-문제 1
-🧚예린이는 최근 여러 주문 데이터를 분석하는 업무를 맡게 되었습니다. 특정 고객의 주문 이력을 분석하기 위해, 다음과 같이 최근 30일간 주문만 필터링한 CTE를 사용해 쿼리를 작성했습니다.
+    [가격이 제일 비싼 식품의 정보 출력하기_CTE](./images/4.jpg)
 
+    [가격이 제일 비싼 식품의 정보 출력하기_채점결과](./images/5.jpg)
+<br><br>
+
+- **문제 1**🧚
+<br>예린이는 최근 여러 주문 데이터를 분석하는 업무를 맡게 되었습니다. 특정 고객의 주문 이력을 분석하기 위해, 다음과 같이 최근 30일간 주문만 필터링한 CTE를 사용해 쿼리를 작성했습니다.
+
+```sql
 WITH RecentOrders AS (
   SELECT *
   FROM Orders
@@ -123,14 +134,28 @@ WITH RecentOrders AS (
 SELECT customer_id, COUNT(*) AS recent_order_count
 FROM RecentOrders
 GROUP BY customer_id;
+
 그런데 예린이는 "이 쿼리를 WITH 없이, 서브쿼리 방식으로 바꿔서 실행해보라" 는 피드백을 받았고, 서브쿼리로 작성해보려 했지만 익숙하지 않아 SQL_ADVANCED를 듣는 학회원분들에게 도움을 요청하고 있습니다. 예린이의 쿼리를 WITH 없이 서브쿼리로 변환해보세요. 그리고 두 방식의 차이점을 설명해보고, 각각의 장단점을 정리해보세요
 
-여기에 답을 작성해주세요!
-참고자료
-서브쿼리를 사용하는 이유가 너무 어려우신 분들을 위해 참고자료를 첨부합니다. 아래 블로그를 통해서 더욱 쉽게 공부해보시고 문제를 풀어보세요.
 
-[SQL] 서브쿼리는 언제 쓰는걸까? https://project-notwork.tistory.com/38
+<서브쿼리를 활용한 방식>
+SELECT customer_id
+     , COUNT(*) AS recent_order_count
+FROM (
+  SELECT *
+  FROM Orders
+  WHERE order_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+) AS RecentOrders
+GROUP BY customer_id;
 
-[SQLD] 서브 쿼리 (SubQeury) 개념 및 종류 https://bommbom.tistory.com/entry/%EC%84%9C%EB%B8%8C-%EC%BF%BC%EB%A6%ACSub-Query-%EA%B0%9C%EB%85%90-%EB%B0%8F-%EC%A2%85%EB%A5%98
+<CTE vs. SubQuery>
+- 차이점 (1) CTE는 여러번 참조할 수 있음.
+        (2) 쿼리의 위치가 상이함.
+
+- CTE 장점: 여러번 사용할 수 있고, 가독성이 좋음.
+      단점: 그러나 CTE가 여러번 중첩되면 오히려 가독성이 떨어짐.
+
+- SubQuery 장점: 간단한 쿼리에서는 구조 파악이 쉬움
+           단점: 재사용 불가하고, 쿼리가 복잡해질수록 가독성 저하됨.
 
 🎉 수고하셨습니다.
